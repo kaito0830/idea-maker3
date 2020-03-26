@@ -1,0 +1,44 @@
+.html
+  = render "header"
+  .header-search
+    =form_with(url: search_ideas_path, local: true, method: :get, class:"search-form") do |f|
+      =f.text_field :keyword, placeholder: "Search", class: "search-input"
+      -# =f.submit "Search", class: "search-btn"
+  .body-logo
+    ALL OF IDEAS
+  .body
+    -# ideaのブロックでひとかたまりのアイデア
+    .ideas
+      -@ideas.reverse_each do |idea|
+        -if user_signed_in? 
+          %a(href="/ideas/#{idea.id}" class="idea")
+            .idea--title
+              = idea.title
+              -# idea-infoでユーザ名と値段の情報を持つ
+            .idea--info 
+              .idea--info--user_name
+                = idea.user.name
+              .idea--info--price
+                price: $
+                = idea.price
+        -else
+          .idea--title
+            = idea.title
+            -# idea-infoでユーザ名と値段の情報を持つ
+          .idea--info 
+            .idea--info--user_name
+              = idea.user.name
+            .idea--info--price
+              price: $
+              = idea.price
+      %end
+  
+    .body-ranking
+      -@all_ranks.each do |idea|
+        = idea.title
+
+    .google-maps
+      会社位置
+      #map
+      %script{type:"text/javascript",src:"code1_1.js"}
+      %script{src:"https://maps.googleapis.com/maps/api/js?key=AIzaSyDucSCzl_8X4EUv7XDnNBnsM2sAiUtWUG4&language=ja&callback=initMap"}

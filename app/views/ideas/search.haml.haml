@@ -1,0 +1,36 @@
+.wrapper
+  .html
+  = render "header"
+  .header-search
+    =form_with(url: search_ideas_path, local: true, method: :get, class:"search-form") do |f|
+      =f.text_field :keyword, placeholder: "Search", class: "search-input"
+      =f.submit "Search", class:"search-btn"
+      -# =f.submit "Search", class: "search-btn"
+  .body-logo
+    ALL OF IDEAS
+  .body
+    -# ideaのブロックでひとかたまりのアイデア
+    .ideas
+      -@ideas.each do |idea|
+        -if user_signed_in? 
+          %a(href="/ideas/#{idea.id}" class="idea")
+            .idea--title
+              = idea.title
+              -# idea-infoでユーザ名と値段の情報を持つ
+            .idea--info 
+              .idea--info--user_name
+                = idea.user.name
+              .idea--info--price
+                price: $
+                = idea.price
+        -else
+          .idea--title
+            = idea.title
+            -# idea-infoでユーザ名と値段の情報を持つ
+          .idea--info 
+            .idea--info--user_name
+              = idea.user.name
+            .idea--info--price
+              price: $
+              = idea.price
+      %end

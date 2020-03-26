@@ -1,0 +1,11 @@
+.content
+  =render "header"
+  .form
+    %h2.form--logo
+      Let's Show Your Idea!!
+    =form_for @idea do |f|
+      =f.text_field :title, class:"form--title form-color", placeholder:"Title"
+      .form--box
+      =f.text_area :info, class:"form--info form-color", placeholder:"Tell Me Your Special Idea!"
+      =f.number_field :price, class:"form--price form-color", min:1, placeholder:"Input Your Idea's Worth($)"
+      =f.submit "Send", class:"form--btn"

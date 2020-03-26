@@ -1,0 +1,30 @@
+.idea-wrapper
+  =render "header"
+  .idea-wrapper__logo
+    IDEA INFORMATION
+  .idea-wrapper__info
+    .idea-wrapper__info--title
+      title: 
+      = @idea.title
+    .idea-wrapper__info--name
+      name: 
+      = @idea.user.name
+    .idea-like#like-link{ id: @idea.id }
+      Like: 
+      %h3
+        =@idea.likes.count
+      =render 'likes/like', collection: @ideas, as: :idea
+  .idea-wrapper__box
+    .idea-wrapper__box__content
+      =@idea.info
+  .idea-container
+    %h2 Comments
+  .comment-form
+    =form_with model: [@idea, @comment], remote: true do |form|
+      .idea-container-form
+        =form.text_area :text, placeholder: "exchange your ideas!!", rows: "2"
+        =form.submit "SEND", class:"comment-form-btn"
+    .comments
+      = render partial: "comments/comment"
+
+

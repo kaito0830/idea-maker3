@@ -1,0 +1,29 @@
+.header
+  .header__info
+    .header--logo
+      %a(href="/")
+        Idea-Maker
+    .header--user
+      -if user_signed_in?
+        .header--user_name
+          User Name:
+          =current_user.name
+  .header--weather
+    =@city_telop
+  .header--btn
+    -if user_signed_in?
+      .header--btn--logout
+        = link_to " Logout", destroy_user_session_path ,class:"btn logout", method: :delete
+      .header--btn--create
+        = link_to "Post", new_idea_path , class: "btn create"
+      %a(href="/users" class="header--btn--users btn")
+        =icon("fas", "users")
+      %a(href="/users/edit" class="header--btn--icon btn")
+        =icon("fas", "cog")
+    -else
+      .header--btn--login
+        = link_to "ログイン", new_user_session_path, class:"btn login"
+      .header--btn--new
+        = link_to "新規登録" , new_user_registration_path, class:"btn registration"
+      %a(href="/users" class="header--btn--users btn")
+        =icon("fas", "users")
